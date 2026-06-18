@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>开云体育 · 知识库入口 | 资料索引与信息导览</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', sans-serif;
+      background-color: #faf8f0; /* 米白基调 */
+      color: #2e2b28;
+      line-height: 1.7;
+      padding: 2rem 1.5rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      padding: 2.8rem 2.2rem;
+    }
+
+    /* 目录感布局 —— 清晰的信息分层 */
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: #3b3a36;
+      border-left: 6px solid #bc9a6b;
+      padding-left: 1rem;
+      margin: 2.5rem 0 1.2rem 0;
+    }
+    .section-title:first-of-type {
+      margin-top: 0.2rem;
+    }
+
+    .hero-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      padding: 0.4rem 0 1.8rem 0;
+      border-bottom: 1px solid #eae6dc;
+    }
+    .hero-wrap h1 {
+      font-size: 2.4rem;
+      font-weight: 480;
+      letter-spacing: -0.02em;
+      color: #2b2a26;
+      line-height: 1.2;
+    }
+    .hero-wrap .sub {
+      font-size: 1rem;
+      color: #6f6b63;
+      max-width: 80%;
+    }
+
+    /* 卡片式资料条 */
+    .index-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.5rem;
+      margin: 1.8rem 0 0.5rem 0;
+    }
+    .index-card {
+      background: #f7f3eb;
+      border-radius: 18px;
+      padding: 1.4rem 1.2rem 1.2rem 1.2rem;
+      transition: background 0.2s;
+    }
+    .index-card:hover {
+      background: #efe9dd;
+    }
+    .index-card h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 0.6rem;
+      color: #3c3a33;
+      border-bottom: 1px dotted #d6cebd;
+      padding-bottom: 0.4rem;
+    }
+    .index-card p {
+      font-size: 0.9rem;
+      color: #4d4942;
+    }
+    .index-card .tag {
+      display: inline-block;
+      background: #ddd6c7;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+      color: #3b352c;
+      margin-top: 0.6rem;
+    }
+
+    /* 说明区 / 引用块风格 */
+    .info-block {
+      background: #f4efe6;
+      padding: 1.6rem 2rem;
+      border-radius: 24px;
+      margin: 2rem 0 1.8rem 0;
+      position: relative;
+    }
+    .info-block::before {
+      content: "📋";
+      font-size: 1.8rem;
+      position: absolute;
+      left: -0.6rem;
+      top: -0.4rem;
+      background: #faf8f0;
+      padding: 0 0.3rem;
+      line-height: 1;
+    }
+    .info-block p {
+      margin-bottom: 0.6rem;
+    }
+    .info-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 提示框 */
+    .hint-box {
+      background: #eae4d7;
+      border-left: 5px solid #a6855a;
+      padding: 1.2rem 1.8rem;
+      border-radius: 14px;
+      margin: 1.6rem 0;
+      font-size: 0.95rem;
+      color: #3d3930;
+    }
+    .hint-box strong {
+      color: #4d3f2b;
+    }
+
+    /* 相关信息区 小号文字 */
+    .rel-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 2rem;
+      margin: 1.2rem 0 0.2rem 0;
+      padding: 1rem 0 0.2rem 0;
+      border-top: 1px dashed #d9d2c2;
+    }
+    .rel-item {
+      font-size: 0.9rem;
+      color: #5b554b;
+    }
+    .rel-item span {
+      background: #ece6da;
+      border-radius: 30px;
+      padding: 0.1rem 0.7rem;
+      font-size: 0.75rem;
+      margin-left: 0.3rem;
+      color: #3f392f;
+    }
+
+    /* FAQ 摘要 */
+    .faq-mini {
+      margin: 2rem 0 1rem 0;
+    }
+    .faq-item {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid #e5dfd1;
+    }
+    .faq-item:last-child {
+      border: none;
+    }
+    .faq-q {
+      font-weight: 500;
+      color: #3f3a30;
+      margin-bottom: 0.2rem;
+    }
+    .faq-a {
+      font-size: 0.9rem;
+      color: #5d574c;
+    }
+
+    /* 内嵌链接样式 */
+    a {
+      color: #7e6b4d;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      text-decoration-color: #c9b99d;
+      transition: color 0.2s, text-decoration-color 0.2s;
+    }
+    a:hover {
+      color: #4b3f2e;
+      text-decoration-color: #7e6b4d;
+    }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem 0.8rem;
+      }
+      .container {
+        padding: 1.8rem 1.2rem;
+      }
+      .hero-wrap h1 {
+        font-size: 1.9rem;
+      }
+      .hero-wrap .sub {
+        max-width: 100%;
+      }
+      .index-grid {
+        grid-template-columns: 1fr;
+      }
+      .info-block {
+        padding: 1.4rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- hero 区域：简洁的标题与定位 -->
+    <div class="hero-wrap">
+      <h1>开云体育 · 知识库入口</h1>
+      <div class="sub">资料整理 · 信息索引 · 结构化导览</div>
+    </div>
+
+    <!-- 索引卡片：目录感布局 -->
+    <div class="section-title">📂 内容索引</div>
+    <div class="index-grid">
+      <div class="index-card">
+        <h3>平台概况</h3>
+        <p>基础信息、运营背景、服务定位与相关术语表。</p>
+        <span class="tag">更新 2025</span>
+      </div>
+      <div class="index-card">
+        <h3>功能模块</h3>
+        <p>体育项目分类、数据统计、赛事追踪与个人中心结构。</p>
+        <span class="tag">模块图</span>
+      </div>
+      <div class="index-card">
+        <h3>协议与说明</h3>
+        <p>用户协议摘要、隐私条款要点及常见条款索引。</p>
+        <span class="tag">法律</span>
+      </div>
+      <div class="index-card">
+        <h3>集成与对接</h3>
+        <p>第三方接入参考、接口文档入口及技术支持概览。</p>
+        <span class="tag">开发</span>
+      </div>
+    </div>
+
+    <!-- 说明区：文字信息块，自然嵌入链接 -->
+    <div class="info-block">
+      <p>本页面作为 <a href="https://skygame-kaiyun.com.cn">开云体育</a> 的辅助知识索引，专注于信息聚合与结构呈现。所有条目均基于公开文档与常见问答整理，便于快速定位所需内容。</p>
+      <p>资料按主题分区：概况、功能、协议与集成。每个索引卡片均可作为独立入口，内部包含更细粒度的标签与参考链接。</p>
+    </div>
+
+    <!-- 提示区 -->
+    <div class="hint-box">
+      <strong>💡 提示：</strong> 建议优先阅读「平台概况」与「协议与说明」两个分区，其中包含基础使用前提与责任边界信息，有助于理解整体服务框架。后续可根据兴趣深入功能模块。
+    </div>
+
+    <!-- 相关信息区（小字标签） -->
+    <div class="section-title">🔖 相关信息</div>
+    <div class="rel-list">
+      <div class="rel-item">📅 最新资料整理 · 2025年4月 <span>v2.1</span></div>
+      <div class="rel-item">📎 关联文档：体育数据参考 <span>PDF</span></div>
+      <div class="rel-item">🔗 服务状态页 · 内测中 <span>动态</span></div>
+      <div class="rel-item">📬 反馈与勘误 <span>工单</span></div>
+    </div>
+
+    <!-- FAQ 摘要（问与答片段） -->
+    <div class="section-title">❓ 常见问题摘要</div>
+    <div class="faq-mini">
+      <div class="faq-item">
+        <div class="faq-q">Q：如何获取最新协议版本？</div>
+        <div class="faq-a">协议文档随服务更新，可通过索引卡片“协议与说明”内的链接获取最新文本。建议定期核对更新日期。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q：数据统计模块是否覆盖所有体育项目？</div>
+        <div class="faq-a">功能模块卡片中列出了主要项目分类，部分细分项目可通过搜索或筛选标签定位。覆盖范围以实际页面展示为准。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q：是否有 API 或数据导出方式？</div>
+        <div class="faq-a">集成与对接部分提供了接口文档入口与技术参考，需根据权限等级申请相应的接入凭证。详情见对接指南。</div>
+      </div>
+    </div>
+
+    <!-- 脚注：再次自然提及链接（非入口语气） -->
+    <div style="margin-top: 2.5rem; font-size: 0.85rem; color: #7b756b; border-top: 1px solid #e3dccf; padding-top: 1.2rem;">
+      <p>本知识库与 <a href="https://skygame-kaiyun.com.cn">开云体育</a> 保持独立内容整理关系，所有条目均经过摘要化处理。建议以官方页面为最终参考。</p>
+    </div>
+  </div>
+</body>
+</html>
